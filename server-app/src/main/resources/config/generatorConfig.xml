@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+<classPathEntry location="C:\Users\d_chien\.m2\repository\mysql\mysql-connector-java\8.0.28\mysql-connector-java-8.0.28.jar"/>
+  <context id="SqlTables" targetRuntime="MyBatis3">
+
+    <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/demo"
+        userId="root"
+        password="root">
+    </jdbcConnection>
+
+    <javaModelGenerator targetPackage="com.app.entity" targetProject="server-app/src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="com.app.repository" targetProject="server-app/src/main/resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.app.repository" targetProject="server-app/src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+    <table tableName="users"></table>
+  </context>
+</generatorConfiguration>
