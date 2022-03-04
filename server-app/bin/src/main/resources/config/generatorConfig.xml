@@ -11,16 +11,16 @@
         password="root">
     </jdbcConnection>
 
-    <javaModelGenerator targetPackage="demo.dc.domain.entity" targetProject="server-app/src/main/java">
+    <javaModelGenerator targetPackage="com.app.entity" targetProject="server-app/src/main/java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
-    <sqlMapGenerator targetPackage="demo.dc.domain.repository" targetProject="server-app/src/main/resources">
+    <sqlMapGenerator targetPackage="com.app.repository" targetProject="server-app/src/main/resources">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
-    <javaClientGenerator type="XMLMAPPER" targetPackage="demo.dc.domain.repository" targetProject="server-app/src/main/java">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.app.repository" targetProject="server-app/src/main/java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
     <table tableName="users"></table>
