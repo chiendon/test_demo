@@ -4,15 +4,22 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import demo.dc.app.bean.WorksBean;
-import demo.dc.domain.entity.Works;
+import demo.dc.app.model.WorksRequest;
+import demo.dc.app.model.WorksResponse;
 
 @Service
 public interface WorksService{
 	/**
-	 * get work information service
+	 * get work informations service
 	 * @param
 	 * @return work list
 	 */
-	public List<WorksBean> getWorks() throws Exception;
+	public List<WorksResponse> getWorks() throws Exception;
+	
+	/**
+	 * add info information service
+	 * @param
+	 * @return work list
+	 */
+	public int addWorks(WorksRequest workInfo) throws Exception;
 }
