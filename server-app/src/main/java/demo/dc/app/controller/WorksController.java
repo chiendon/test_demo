@@ -7,12 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import demo.dc.app.model.WorkEditRequest;
 import demo.dc.app.model.WorksRequest;
 import demo.dc.app.model.WorksResponse;
 import demo.dc.common.CommonHTTPBodyMessage;
@@ -45,7 +47,7 @@ public class WorksController {
 			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	/**
 	 * Add work information
 	 * 
@@ -61,6 +63,33 @@ public class WorksController {
 		try {
 			// Call service
 			int res = worksService.addWorks(worksRequest);
+			
+			if(res == 0) {
+				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_INSRERT, HttpStatus.BAD_REQUEST);
+			}
+			return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_SUCCESS_INSRERT, HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	/**
+	 * Edit work information
+	 * 
+	 * @param model
+	 * @param work code
+	 * @return HTTP response
+	 */
+	@PostMapping(
+			value = "/api/work/edit/{id}", 
+			consumes = {MediaType.APPLICATION_JSON_VALUE},
+			produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Object> editWork(@RequestBody @Validated WorkEditRequest worksRequest, @PathVariable("id") int codeWork){
+		
+		try {
+			// Call service
+			int res = worksService.editWorks(worksRequest, codeWork);
 			
 			if(res == 0) {
 				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_INSRERT, HttpStatus.BAD_REQUEST);
