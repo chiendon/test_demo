@@ -283,4 +283,39 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectBySorting" parameterType="demo.dc.app.model.WorksSortingAndPagingRequest" resultMap="BaseResultMap">
+    select
+    *
+    from works
+    <if test="idShort == 1">
+        order by id
+    </if>
+    <if test="idShort == 2">
+        order by id DESC
+    </if>
+	<if test="workNameShort == 1">
+        order by work_name
+    </if>
+    <if test="workNameShort == 2">
+        order by work_name DESC
+    </if>
+    <if test="startingDateShort == 1">
+        order by starting_date
+    </if>
+    <if test="startingDateShort == 2">
+        order by starting_date DESC
+    </if>
+    <if test="endingDateShort == 1">
+        order by work_name
+    </if>
+    <if test="endingDateShort == 2">
+        order by ending_date DESC
+    </if>
+    <if test="statusShort == 1">
+        order by status
+    </if>
+    <if test="statusShort == 2">
+        order by status DESC
+    </if>
+  </select>
 </mapper>
