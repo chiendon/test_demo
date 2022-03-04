@@ -1,20 +1,20 @@
-<table class="table">
+
+<table class="table table-striped">
 	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Work Name</th>
-			<th>Starting Date</th>
-			<th>Ending Date</th>
-			<th>Status</th>
-		</tr>
+	  <tr>
+		<th scope="col">Work Code</th>
+		<th scope="col">Work Name</th>
+		<th scope="col">Starting Date</th>
+		<th scope="col">Status</th>
+	  </tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let product of productList">
-			<td>{{product.id}}</td>
-			<td>{{product.workName}}</td>
-			<td>{{product.startingDate}}</td>
-			<td>{{product.endingDate}}</td>
-			<td>{{product.status}}</td>
-		</tr>
+	  <tr *ngFor="let product of productList">
+		<th scope="row">{{product.id}}</th>
+		<td>{{product.workName}}</td>
+		<td>{{product.startingDate}}</td>
+		<td>{{product.endingDate}}</td>
+		<td>{{product.status}}</td>
+	  </tr>
 	</tbody>
 </table>
