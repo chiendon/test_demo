@@ -58,7 +58,7 @@ public class WorksController {
 			value = "/api/work/add", 
 			consumes = {MediaType.APPLICATION_JSON_VALUE},
 			produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Object> addWorks(@RequestBody @Validated WorksRequest worksRequest){
+	public ResponseEntity<Object> addWork(@RequestBody @Validated WorksRequest worksRequest){
 		
 		try {
 			// Call service
@@ -85,11 +85,38 @@ public class WorksController {
 			value = "/api/work/edit/{id}", 
 			consumes = {MediaType.APPLICATION_JSON_VALUE},
 			produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Object> editWork(@RequestBody @Validated WorkEditRequest worksRequest, @PathVariable("id") int codeWork){
+	public ResponseEntity<Object> editWork(@RequestBody @Validated WorkEditRequest worksRequest, @PathVariable("id") int id){
 		
 		try {
 			// Call service
-			int res = worksService.editWorks(worksRequest, codeWork);
+			int res = worksService.editWorks(worksRequest, id);
+			
+			if(res == 0) {
+				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_INSRERT, HttpStatus.BAD_REQUEST);
+			}
+			return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_SUCCESS_INSRERT, HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
+	 * Edit work information
+	 * 
+	 * @param model
+	 * @param work code
+	 * @return HTTP response
+	 */
+	@PostMapping(
+			value = "/api/work/delete", 
+			consumes = {MediaType.APPLICATION_JSON_VALUE},
+			produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Object> deleteWork(@RequestBody @Validated WorkEditRequest worksRequest){
+		
+		try {
+			// Call service
+			int res = worksService.deleteWork(worksRequest.getId());
 			
 			if(res == 0) {
 				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_INSRERT, HttpStatus.BAD_REQUEST);

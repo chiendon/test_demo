@@ -4,6 +4,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class WorkEditRequest {
+	// Work code
+	private int id;
+	
 	// Work name
 	@Size(min= 1, max = 250, message= "value is too long")
 	private String workName;
@@ -19,6 +22,14 @@ public class WorkEditRequest {
 	// status
 //	@Pattern(regexp = "^[0-9]*$", message="Value isn't Decimal type")
 	private int status;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public String getWorkName() {
 		return workName;

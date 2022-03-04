@@ -19,15 +19,23 @@ public interface WorksService{
 	
 	/**
 	 * add info information service
-	 * @param
+	 * @param workInfo
 	 * @return work list
 	 */
 	public int addWorks(WorksRequest workInfo) throws Exception;
 
 	/**
 	 * edit info information service
-	 * @param
+	 * @param workInfo
+	 * @param workCode
 	 * @return work list
 	 */
 	public int editWorks(WorkEditRequest workInfo, int workCode) throws Exception;
+	
+	/**
+	 * delete info information service
+	 * @param workInfo
+	 * @return work list
+	 */
+	public int deleteWork(int workCode) throws Exception;
 }

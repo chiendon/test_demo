@@ -78,8 +78,8 @@ public class WorksServiceImpl implements WorksService{
 	
 	/**
 	 * add info information service
-	 * @param
-	 * @return result insert
+	 * @param workInfo
+	 * @return work list
 	 */
 	@Override
 	public int addWorks(WorksRequest workInfo) throws Exception{
@@ -102,8 +102,9 @@ public class WorksServiceImpl implements WorksService{
 
 	/**
 	 * edit info information service
-	 * @param
-	 * @return result update
+	 * @param workInfo
+	 * @param workCode
+	 * @return work list
 	 */
 	@Override
 	public int editWorks(WorkEditRequest workInfo, int workCode) throws Exception{
@@ -117,7 +118,28 @@ public class WorksServiceImpl implements WorksService{
 			if(workInfo.getStartingDate() != null) work.setStartingDate(formatter.parse(workInfo.getStartingDate()));
 			if(workInfo.getEndingDate() != null) work.setEndingDate(formatter.parse(workInfo.getEndingDate()));
 			work.setStatus(workInfo.getStatus());
+			
+			// Update db
 			return worksMapper.updateByPrimaryKeySelective(work);
+		}
+		catch(Exception e) {
+			// throw if system have exception
+			throw new Exception(e);
+		}
+		
+	}
+	
+	/**
+	 * delete info information service
+	 * @param workInfo
+	 * @return work list
+	 */
+	@Override
+	public int deleteWork(int workCode) throws Exception{
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			return worksMapper.deleteByPrimaryKey(workCode);
 		}
 		catch(Exception e) {
 			// throw if system have exception
