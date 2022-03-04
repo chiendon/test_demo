@@ -1,35 +1,23 @@
 package demo.dc.app.model;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class WorksRequest {
+public class WorkEditRequest {
 	// Work name
-	@NotNull(message="Properties isn't exist")
-	@NotEmpty(message="Properties isn't value")
 	@Size(min= 1, max = 250, message= "value is too long")
 	private String workName;
 	
 	// Starting Date
-	@NotNull(message="Properties isn't exist")
-	@NotEmpty(message="Properties isn't value")
 //	@Pattern(regexp = "^[0-9]*$", message="Value isn't Date type")
 	private String startingDate;
 	
 	// Ending Date
-	@NotNull(message="Properties isn't exist")
-	@NotEmpty(message="Properties isn't value")
 //	@Pattern(regexp = "^[0-9]*$", message="Value isn't Date type")
 	private String endingDate;
 	
 	// status
-	@NotNull(message="Properties isn't exist")
-	@Pattern(regexp = "^[0-9]*$", message="Value isn't decimal type")
+//	@Pattern(regexp = "^[0-9]*$", message="Value isn't Decimal type")
 	private int status;
 	
 	public String getWorkName() {

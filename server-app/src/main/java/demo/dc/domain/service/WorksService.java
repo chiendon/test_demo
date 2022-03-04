@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import demo.dc.app.model.WorkEditRequest;
 import demo.dc.app.model.WorksRequest;
 import demo.dc.app.model.WorksResponse;
 
@@ -22,4 +23,11 @@ public interface WorksService{
 	 * @return work list
 	 */
 	public int addWorks(WorksRequest workInfo) throws Exception;
+
+	/**
+	 * edit info information service
+	 * @param
+	 * @return work list
+	 */
+	public int editWorks(WorkEditRequest workInfo, int workCode) throws Exception;
 }

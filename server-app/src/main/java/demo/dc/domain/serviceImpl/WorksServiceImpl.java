@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import demo.dc.app.model.WorkEditRequest;
 import demo.dc.app.model.WorksRequest;
 import demo.dc.app.model.WorksResponse;
 import demo.dc.common.Const;
@@ -78,7 +79,7 @@ public class WorksServiceImpl implements WorksService{
 	/**
 	 * add info information service
 	 * @param
-	 * @return work list
+	 * @return result insert
 	 */
 	@Override
 	public int addWorks(WorksRequest workInfo) throws Exception{
@@ -92,6 +93,31 @@ public class WorksServiceImpl implements WorksService{
 			work.setEndingDate(formatter.parse(workInfo.getEndingDate()));
 			work.setStatus(workInfo.getStatus());
 			return worksMapper.insert(work);
+		}
+		catch(Exception e) {
+			// throw if system have exception
+			throw new Exception(e);
+		}
+	}
+
+	/**
+	 * edit info information service
+	 * @param
+	 * @return result update
+	 */
+	@Override
+	public int editWorks(WorkEditRequest workInfo, int workCode) throws Exception{
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			// map to Entity
+			Works work = new Works();
+			work.setId(workCode);
+			work.setWorkName(workInfo.getWorkName());
+			if(workInfo.getStartingDate() != null) work.setStartingDate(formatter.parse(workInfo.getStartingDate()));
+			if(workInfo.getEndingDate() != null) work.setEndingDate(formatter.parse(workInfo.getEndingDate()));
+			work.setStatus(workInfo.getStatus());
+			return worksMapper.updateByPrimaryKeySelective(work);
 		}
 		catch(Exception e) {
 			// throw if system have exception
