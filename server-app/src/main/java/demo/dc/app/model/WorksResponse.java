@@ -1,6 +1,4 @@
-package demo.dc.app.bean;
-
-import java.util.Date;
+package demo.dc.app.model;
 
 import org.springframework.stereotype.Component;
 
@@ -10,7 +8,7 @@ import lombok.Setter;
 @Component
 //@Getter
 //@Setter
-public class WorksBean {
+public class WorksResponse {
 	// Work code
 	private int id;
 	// Work name
@@ -19,8 +17,8 @@ public class WorksBean {
 	private String startingDate;
 	// Ending Date
 	private String endingDate;
-	// status
-	private int status;
+	// Status
+	private String status;
 	
 
 	public int getId() {
@@ -55,11 +53,11 @@ public class WorksBean {
 		this.endingDate = endingDate;
 	}
 	
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 	
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 }

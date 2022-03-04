@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import demo.dc.app.bean.WorksBean;
+import demo.dc.app.model.WorksRequest;
+import demo.dc.app.model.WorksResponse;
+import demo.dc.common.Const;
 import demo.dc.domain.entity.Works;
 import demo.dc.domain.entity.WorksExample;
 import demo.dc.domain.repository.WorksMapper;
@@ -28,10 +30,10 @@ public class WorksServiceImpl implements WorksService{
 	 * @return work list
 	 */
 	@Override
-	public List<WorksBean> getWorks() throws Exception{
+	public List<WorksResponse> getWorks() throws Exception{
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy");
-		List<WorksBean> result = new ArrayList<WorksBean>();
+		List<WorksResponse> result = new ArrayList<WorksResponse>();
 		worksExample.clear();
 
 		// Query data
@@ -45,19 +47,57 @@ public class WorksServiceImpl implements WorksService{
 
 			// map to bean
 			for(Works info : worksList) {
-				WorksBean work = new WorksBean();
+				WorksResponse work = new WorksResponse();
 				work.setId(info.getId());
 				work.setWorkName(info.getWorkName());
 				work.setStartingDate(formatter.format(info.getStartingDate()));
 				work.setEndingDate(formatter.format(info.getEndingDate()));
-				work.setStatus(info.getStatus());
+				
+				// map status to 3 type
+				switch (info.getStatus()) {
+				case 0:
+					work.setStatus(Const.PLANNING);
+					break;
+				case 1:
+					work.setStatus(Const.DOING);
+				    break;
+				case 2:
+					work.setStatus(Const.COMPLETE);
+					break;
+				}
 				result.add(work);
 			}
 			return result;
 		}
 		catch(Exception e) {
+			// throw if system have exception
 			throw new Exception(e);
 		}
+	}
+	
+	/**
+	 * add info information service
+	 * @param
+	 * @return work list
+	 */
+	@Override
+	public int addWorks(WorksRequest workInfo) throws Exception{
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			// map to Entity
+			Works work = new Works();
+			work.setWorkName(workInfo.getWorkName());
+			work.setStartingDate(formatter.parse(workInfo.getStartingDate()));
+			work.setEndingDate(formatter.parse(workInfo.getEndingDate()));
+			work.setStatus(workInfo.getStatus());
+			return worksMapper.insert(work);
+		}
+		catch(Exception e) {
+			// throw if system have exception
+			throw new Exception(e);
+		}
+		
 	}
 
 }
