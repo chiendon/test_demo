@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WorksRequest {
+	// Work code
+	private int id;
+
 	// Work name
 	@NotNull(message="Properties isn't exist")
 	@NotEmpty(message="Properties isn't value")
@@ -29,9 +32,16 @@ public class WorksRequest {
 	
 	// status
 	@NotNull(message="Properties isn't exist")
-	@Pattern(regexp = "^[0-9]*$", message="Value isn't decimal type")
 	private int status;
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getWorkName() {
 		return workName;
 	}
