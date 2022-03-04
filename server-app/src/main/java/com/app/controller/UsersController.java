@@ -13,6 +13,7 @@ import com.app.service.UserService;
 public class UsersController {
 	@Autowired
 	UserService userService;
+	
 	@RequestMapping(value = "/api/user", method = RequestMethod.GET)
 	public ResponseEntity<Object> getProduct(){
 		return new ResponseEntity<Object>(userService.getUsers(), HttpStatus.OK);
