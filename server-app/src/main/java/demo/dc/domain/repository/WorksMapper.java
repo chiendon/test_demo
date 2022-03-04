@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import demo.dc.app.model.WorksSortingAndPagingRequest;
 import demo.dc.domain.entity.Works;
 import demo.dc.domain.entity.WorksExample;
 
@@ -78,4 +79,9 @@ public interface WorksMapper {
 	 * @mbg.generated  Fri Mar 04 16:26:54 ICT 2022
 	 */
 	int updateByPrimaryKey(Works record);
+	
+	/**
+	 * Get work sort from small to large and sort from big to small
+	 */
+	List<Works> selectBySorting(WorksSortingAndPagingRequest worksSorting);
 }

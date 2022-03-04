@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import demo.dc.app.model.WorkEditRequest;
 import demo.dc.app.model.WorksRequest;
 import demo.dc.app.model.WorksResponse;
+import demo.dc.app.model.WorksSortingAndPagingReponse;
+import demo.dc.app.model.WorksSortingAndPagingRequest;
 
 @Service
 public interface WorksService{
@@ -38,4 +40,11 @@ public interface WorksService{
 	 * @return work list
 	 */
 	public int deleteWork(int workCode) throws Exception;
+	
+	/**
+	 * fetch work with sorting and paging
+	 * @param workInfo
+	 * @return work list
+	 */
+	public WorksSortingAndPagingReponse getWorkSortPaging(WorksSortingAndPagingRequest info) throws Exception;
 }

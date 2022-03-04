@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import demo.dc.app.model.WorkEditRequest;
 import demo.dc.app.model.WorksRequest;
 import demo.dc.app.model.WorksResponse;
+import demo.dc.app.model.WorksSortingAndPagingReponse;
+import demo.dc.app.model.WorksSortingAndPagingRequest;
 import demo.dc.common.CommonHTTPBodyMessage;
 import demo.dc.domain.service.WorksService;
 
@@ -39,7 +41,7 @@ public class WorksController {
 			List<WorksResponse> res = worksService.getWorks();
 			
 			if(res == null) {
-				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_FOUND, HttpStatus.OK);
+				return new ResponseEntity<Object>(HttpStatus.OK);
 			}
 			return new ResponseEntity<Object>(res, HttpStatus.OK);
 		}
@@ -65,9 +67,9 @@ public class WorksController {
 			int res = worksService.addWorks(worksRequest);
 			
 			if(res == 0) {
-				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_INSRERT, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 			}
-			return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_SUCCESS_INSRERT, HttpStatus.OK);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		}
 		catch(Exception e) {
 			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
@@ -92,9 +94,9 @@ public class WorksController {
 			int res = worksService.editWorks(worksRequest, id);
 			
 			if(res == 0) {
-				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_INSRERT, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 			}
-			return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_SUCCESS_INSRERT, HttpStatus.OK);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		}
 		catch(Exception e) {
 			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
@@ -119,9 +121,36 @@ public class WorksController {
 			int res = worksService.deleteWork(worksRequest.getId());
 			
 			if(res == 0) {
-				return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_NOT_INSRERT, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 			}
-			return new ResponseEntity<Object>(CommonHTTPBodyMessage.MSG_SUCCESS_INSRERT, HttpStatus.OK);
+			return new ResponseEntity<Object>(HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	/**
+	 * Edit work information
+	 * 
+	 * @param model
+	 * @param work code
+	 * @return HTTP response
+	 */
+	@PostMapping(
+			value = "/api/work/sortpage", 
+			consumes = {MediaType.APPLICATION_JSON_VALUE},
+			produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Object> fecthWorkSortPaging(@RequestBody @Validated WorksSortingAndPagingRequest worksRequest){
+		
+		try {
+			// Call service
+			WorksSortingAndPagingReponse res = worksService.getWorkSortPaging(worksRequest);
+			
+			if(res == null) {
+				return new ResponseEntity<Object>( HttpStatus.OK);
+			}
+			return new ResponseEntity<Object>(res, HttpStatus.OK);
 		}
 		catch(Exception e) {
 			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
