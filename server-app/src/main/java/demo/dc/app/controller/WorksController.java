@@ -1,5 +1,6 @@
 package demo.dc.app.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class WorksController {
 			List<WorksResponse> res = worksService.getWorks();
 			
 			if(res == null) {
-				return new ResponseEntity<Object>(HttpStatus.OK);
+				return new ResponseEntity<Object>(Collections.singletonMap("message", CommonHTTPBodyMessage.MSG_NOT_FOUND), HttpStatus.OK);
 			}
 			return new ResponseEntity<Object>(res, HttpStatus.OK);
 		}
@@ -67,7 +68,7 @@ public class WorksController {
 			int res = worksService.addWorks(worksRequest);
 			
 			if(res == 0) {
-				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Object>(Collections.singletonMap("message", CommonHTTPBodyMessage.MSG_NOT_INSRERT), HttpStatus.BAD_REQUEST);
 			}
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		}
@@ -94,7 +95,7 @@ public class WorksController {
 			int res = worksService.editWorks(worksRequest, id);
 			
 			if(res == 0) {
-				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Object>(Collections.singletonMap("message", CommonHTTPBodyMessage.MSG_NOT_UPDATE), HttpStatus.BAD_REQUEST);
 			}
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		}
@@ -120,8 +121,8 @@ public class WorksController {
 			// Call service
 			int res = worksService.deleteWork(worksRequest.getId());
 			
-			if(res == 0) {
-				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+			if(res != 1) {
+				return new ResponseEntity<Object>(Collections.singletonMap("message", CommonHTTPBodyMessage.MSG_NOT_FOUND), HttpStatus.OK);
 			}
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		}
@@ -148,7 +149,7 @@ public class WorksController {
 			WorksSortingAndPagingReponse res = worksService.getWorkSortPaging(worksRequest);
 			
 			if(res == null) {
-				return new ResponseEntity<Object>( HttpStatus.OK);
+				return new ResponseEntity<Object>(Collections.singletonMap("message", CommonHTTPBodyMessage.MSG_NOT_FOUND), HttpStatus.OK);
 			}
 			return new ResponseEntity<Object>(res, HttpStatus.OK);
 		}
