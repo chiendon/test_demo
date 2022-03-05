@@ -142,6 +142,9 @@ public class WorksServiceImpl implements WorksService{
 		formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 		try {
+			Works haveRecord = worksMapper.selectByPrimaryKey(workCode);
+			if (haveRecord == null)
+				return 0;
 			return worksMapper.deleteByPrimaryKey(workCode);
 		}
 		catch(Exception e) {
